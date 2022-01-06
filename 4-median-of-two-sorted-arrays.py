@@ -36,6 +36,8 @@ nums2.length == n
 '''
 Nice solution from: https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2481/Share-my-O(log(min(mn)))-solution-with-explanation
 
+Runtime: 76 ms
+Memory: 13.7 MB
 -------------------
 #1 BACKGROUND
 -------------------
