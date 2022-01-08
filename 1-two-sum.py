@@ -31,11 +31,13 @@ Constraints:
 Only one valid answer exists.
 '''
 
-# ------------------------
-# Solution 1 - Brute Force
-# Time: O(n^2) - Looking through the rest of the array takes O(n) time.
-# Space: O(1)
-# ------------------------
+'''
+------------------------------------------------------------------------
+Solution 1 - Brute Force
+Time: O(n^2) - Looking through the rest of the array takes O(n) time.
+Space: O(1)
+------------------------------------------------------------------------
+'''
 class Solution(object):
     def twoSum(self, nums, target):
         for i in range(len(nums)):
@@ -43,14 +45,15 @@ class Solution(object):
                 if nums[i] + nums[j] == target:
                     return [i, j]
 
-# ------------------------
-# Solution 2 - Two Pass Hash Table
-# Time: O(n) - Look up time in hash table is O(1).
-# Space: O(n)
-# ------------------------
 '''
+------------------------------------------------------------------------
+Solution 2 - Two Pass Hash Table
+Time: O(n) - Look up time in hash table is O(1).
+Space: O(n)
+
 First pass => put all (value, index) in hashmap
 Second pass => define complement, and see if complement already exists in hashmap (while index is different)
+------------------------------------------------------------------------
 '''
 class Solution(object):
     def twoSum(self, nums, target):
@@ -62,15 +65,15 @@ class Solution(object):
             if complement in hashmap and hashmap[complement] != j:
                 return[j, hashmap[complement]]
 
-
-# ------------------------
-# Solution 3 - One Pass Hash Table
-# Time: O(n)
-# Space: O(n)
-# ------------------------
 '''
+------------------------------------------------------------------------
+Solution 3 - One Pass Hash Table
+Time: O(n)
+Space: O(n)
+
 You can even do sigle pass by checking complement before adding (value, index) to hashmap.
 This way, you don't have to check for index overlap later.
+------------------------------------------------------------------------
 '''
 class Solution(object):
     def twoSum(self, nums, target):

@@ -28,16 +28,16 @@ nums2.length == n
 -106 <= nums1[i], nums2[i] <= 106
 '''
 
-# ------------------------
-# Solution 1 - iteration to find perfect (i)
-# Time: O(log(min(m,n)))
-# Space: O(1)
-# ------------------------
 '''
-Nice solution from: https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2481/Share-my-O(log(min(mn)))-solution-with-explanation
+------------------------------------------------------------------------
+Solution 1 - iteration to find perfect (i)
+Time: O(log(min(m,n)))
+Space: O(1)
 
 Runtime: 76 ms
 Memory: 13.7 MB
+
+Nice solution from: https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2481/Share-my-O(log(min(mn)))-solution-with-explanation
 -------------------
 #1 BACKGROUND
 -------------------
@@ -137,6 +137,7 @@ We don't need to check whether j > 0 and whether j < n because i < m ==> j > 0 a
         Means A[i-1] is too big. And we must `decrease` i to get `A[i-1]<=B[j]`.
         That is, we must ajust the searching range to [imin, i-1].
         So, set imax = i-1, and goto <2>.
+------------------------------------------------------------------------
 '''
 class Solution(object):
     def findMedianSortedArrays(self, A, B):

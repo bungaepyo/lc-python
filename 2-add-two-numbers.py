@@ -36,16 +36,17 @@ class ListNode(object):
         self.val = val
         self.next = next
 
-# ------------------------
-# Solution 1 - Math using while loop, no recursion
-# Time: O(max(m,n))
-# Space: O(max(m,n)) - length of returned list is at most max(m,n)+1
-# ------------------------
 '''
-This is a very readable solution, but relies on the divmod function.
-If divmod is replaced by % and /, exceeds time complexity.
+------------------------------------------------------------------------
+Solution 1 - Math using while loop, no recursion
+Time: O(max(m,n))
+Space: O(max(m,n)) - length of returned list is at most max(m,n)+1
 
 Runtime: 139ms
+
+This is a very readable solution, but relies on the divmod function.
+If divmod is replaced by % and /, exceeds time complexity.
+------------------------------------------------------------------------
 '''
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
@@ -66,16 +67,16 @@ class Solution(object):
             l2 = l2.next if l2 else None
         
         return result.next
-
-# ------------------------
-# Solution 2 - Math using while loop, no recursion (simplified)
-# Time: O(max(m,n))
-# Space: O(max(m,n)) - length of returned list is at most max(m,n)+1
-# ------------------------
 '''
-This is an alternative solution to solution 1.
+------------------------------------------------------------------------
+Solution 2 - Math using while loop, no recursion (simplified)
+Time: O(max(m,n))
+Space: O(max(m,n)) - length of returned list is at most max(m,n)+1
 
 Runtime: 57ms
+
+This is an alternative solution to solution 1.
+------------------------------------------------------------------------
 '''
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
@@ -94,17 +95,17 @@ class Solution(object):
             dummy = dummy.next
         return result.next
 
-
-# ------------------------
-# Solution 3 - Math using while loop, no recursion, no divmod
-# Time: O(max(m,n))
-# Space: O(max(m,n)) - length of returned list is at most max(m,n)+1
-# ------------------------
 '''
-This is an alternative solution, not relying on the divmod function.
-This solution introduces the floor division operator // and gets rid of "out" variable in solution 1 & 2.
+------------------------------------------------------------------------
+Solution 3 - Math using while loop, no recursion, no divmod
+Time: O(max(m,n))
+Space: O(max(m,n)) - length of returned list is at most max(m,n)+1
 
 Runtime: 82ms
+
+This is an alternative solution, not relying on the divmod function.
+This solution introduces the floor division operator // and gets rid of "out" variable in solution 1 & 2.
+------------------------------------------------------------------------
 '''
 class Solution(object):
   def addTwoNumbers(self, l1, l2):
@@ -122,16 +123,16 @@ class Solution(object):
             carry //= 10
         return result.next
 
-
-# ------------------------
-# Solution 4 - Recursion
-# Time: O(max(m,n))
-# Space: O(max(m,n)) - length of returned list is at most max(m,n)+1
-# ------------------------
 '''
-This is a recursive solution.
+------------------------------------------------------------------------
+Solution 4 - Recursion
+Time: O(max(m,n))
+Space: O(max(m,n)) - length of returned list is at most max(m,n)+1
 
 Runtime: 64ms
+
+This is a recursive solution.
+------------------------------------------------------------------------
 '''
 def printList(nodeStart):
     print(nodeStart.val)

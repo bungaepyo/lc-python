@@ -31,18 +31,19 @@ Constraints:
 s consists of English letters, digits, symbols and spaces.
 '''
 
-# ------------------------
-# Solution 1 - Hash Table, Sliding Window
-# Time: O(n) - one pass
-# Space: O(n) - worst case Hash Table holds all characters in s
-# ------------------------
 '''
-This is my initial solution using hash table and sliding window.
-Check repeating characters using a hash table, keep track of longest substring a sliding window (end-start+1).
-If you find a string that already exists in the hash table, delete everything before and update index.
+------------------------------------------------------------------------
+Solution 1 - Hash Table, Sliding Window
+Time: O(n) - one pass
+Space: O(n) - worst case Hash Table holds all characters in s
 
 Runtime: 423 ms
 Memory: 14.5 MB
+ 
+This is my initial solution using hash table and sliding window.
+Check repeating characters using a hash table, keep track of longest substring a sliding window (end-start+1).
+If you find a string that already exists in the hash table, delete everything before and update index.
+------------------------------------------------------------------------
 '''
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
@@ -62,20 +63,19 @@ class Solution(object):
             
         return maximum
 
-
-# ------------------------
-# Solution 2 - Hash Table, Sliding Window, Optimized
-# Time: O(n) - one pass
-# Space: O(n) - worst case Hash Table holds all characters in s
-# ------------------------
 '''
-This is an optimized soltution using hash table and sliding window.
-The way this solution dramatically reduces runtime is by keeping track of each character's next index in mp, and updating i.
-i is equivalent to the start, j is equivalent to the end of the sliding window.
-Everytime a repeating character is found, i is updated to the mp's character's value (next index) so that current substring only holds unique characters.
+------------------------------------------------------------------------
+Solution 2 - Hash Table, Sliding Window, Optimized
+Time: O(n) - one pass
+Space: O(n) - worst case Hash Table holds all characters in s
 
 Runtime: 45 ms
 Memory: 14.2 MB
+
+The way this solution dramatically reduces runtime is by keeping track of each character's next index in mp, and updating i.
+i is equivalent to the start, j is equivalent to the end of the sliding window.
+Everytime a repeating character is found, i is updated to the mp's character's value (next index) so that current substring only holds unique characters.
+------------------------------------------------------------------------
 '''
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
