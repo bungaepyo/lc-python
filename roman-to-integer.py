@@ -52,3 +52,37 @@ Constraints:
 s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
 It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 '''
+
+'''
+------------------------------------------------------------------------
+Solution 1 - Hashmap
+Time: O(n)
+Space: O(1)
+
+Runtime: 36 ms
+Memory: 13.5 MB
+
+This is my solution using hashmap. There are only couple key points to take not of:
+  (1) store roman-integer pairs in a map
+  (2) iterate string backwards and add each integer matching to the result
+  (3) be aware that the only exception is when the previous integer is greater than the current one
+    - this is due to the way roman numbers are written, and you need to subtract from the result in this case
+    - e.g. IV => 4, IX => 9, XC => 90, CM => 900
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def romanToInt(self, s):
+        hashmap = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000}
+        res = 0
+        temp = 0
+        
+        for i in range(len(s)):
+            integer = hashmap[s[len(s)-1-i]]
+            if integer < temp:
+                res -= integer
+            else:
+                res += integer
+            temp = integer
+        
+        return res
+            
