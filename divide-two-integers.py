@@ -34,7 +34,7 @@ divisor != 0
 
 '''
 ------------------------------------------------------------------------
-Solution 1 - Bit Shifting
+Solution 1 - Bit Shifting (exponential search)
 Time: O((log a)^2) - left shift operation takes O(log a)
 Space: O(1)
 
@@ -59,6 +59,8 @@ and do the comparison starting from larger powers to lower, we would be able to 
 how many times b may fit in a. If a <= b << i
   (1) add 2**i to the answer 
   (2) subtract b << i from a (so that we can start again with the remaining portion)
+
+Potential issue of using abs(): abs(-2**31) is 2**31 which is outside the allowed range by 1.
 ------------------------------------------------------------------------
 '''
 class Solution(object):
@@ -76,3 +78,61 @@ class Solution(object):
         
         ans = ans if not neg else -1*ans
         return min(max(-2147483648, ans), 2147483647)
+
+
+
+'''
+------------------------------------------------------------------------
+Solution 2 - Exponential Search
+Time: O((log a)**2)
+Space: O(1)
+
+Runtime: 38 ms
+Memory: 13.5 MB
+
+This is an exponential search solution without using the bit shifting technique.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def divide(self, dividend, divisor):
+        MAX_INT = 2147483647        # 2**31 - 1
+        MIN_INT = -2147483648       # -2**31
+        HALF_MIN_INT = -1073741824  # MIN_INT // 2
+
+        # Special case: overflow.
+        if dividend == MIN_INT and divisor == -1:
+            return MAX_INT
+
+        # We need to convert both numbers to negatives.
+        # Also, we count the number of negatives signs.
+        negatives = 2
+        if dividend > 0:
+            negatives -= 1
+            dividend = -dividend
+        if divisor > 0:
+            negatives -= 1
+            divisor = -divisor
+
+        quotient = 0
+        # Once the divisor is bigger than the current dividend,
+        # we can't fit any more copies of the divisor into it anymore */
+        while divisor >= dividend:
+            # We know it'll fit at least once as divivend >= divisor.
+            # Note: We use a negative powerOfTwo as it's possible we might have
+            # the case divide(INT_MIN, -1). */
+            powerOfTwo = -1
+            value = divisor
+            # Check if double the current value is too big. If not, continue doubling.
+            # If it is too big, stop doubling and continue with the next step */
+            while value >= HALF_MIN_INT and value + value >= dividend:
+                value += value
+                powerOfTwo += powerOfTwo
+            # We have been able to subtract divisor another powerOfTwo times.
+            quotient += powerOfTwo
+            # Remove value so far so that we can continue the process with remainder.
+            dividend -= value
+
+        # If there was originally one negative sign, then
+        # the quotient remains negative. Otherwise, switch
+        # it to positive.
+        return -quotient if negatives != 1 else quotient
