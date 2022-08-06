@@ -72,3 +72,90 @@ class Solution(object):
             ans += min(leftMax[i], rightMax[i]) - height[i]
 
         return ans
+
+'''
+------------------------------------------------------------------------
+Solution 2 - Stack
+Time: O(n)
+Space: O(n)
+
+Runtime: 139 ms
+Memory: 14.9 MB
+
+Simplify problem: there has to be a bar bigger than previous bars in order to trap any water.
+
+This is a solution using a stack data structure. While iterating the height
+array one-pass, there are two things we need to keep in mind:
+  (1) if current bar is lower or equal to the top bar of the stack,
+      it means that current bar is bound by the top bar of the stack.
+  (2) if current bar is greater than the top bar of the stack, it means
+      that top bar is bounded by current bar and previous bars in the stack.
+      Thus, it is safe to add trapped water to this point to the answer.
+If you do not encounter (2), keep adding to the stack.
+If you encounter (2), add trapped water one by one by 
+  (1) popping the top element => you cannot trap water if bars are next to each other
+  (2) calculating the distance between current and top bar after the pop
+  (3) calculating the bound height by min(current, top after pop) * top before pop
+  (4) add to answer
+This process would lead to adding all trapped water up to current index, and starting fresh from there.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def trap(self, height):
+        ans = current = 0
+        stack = []
+        
+        while (current < len(height)):
+            while(not len(stack) == 0 and height[current] > height[stack[-1]]):
+                top = stack.pop()
+                if(len(stack) == 0):
+                    break
+                distance = current - stack[-1] - 1
+                bound_height = min(height[current], height[stack[-1]]) - height[top]
+                ans += distance * bound_height
+            stack.append(current)
+            current += 1
+            
+        return ans
+
+'''
+------------------------------------------------------------------------
+Solution 3 - Two Pointer
+Time: O(n)
+Space: O(1)
+
+Runtime: 108 ms
+Memory: 14.9 MB
+
+This solution uses the same concept as solution 1 (dp), but simplifies space complexity
+by using the two pointer method. As you can see from solution 1:
+  - as long as right_max[i] > left_max[i], the water trapped depends upon the left_max, and vice versa
+Therefore, using the two pointer method from left and right, we are able to add trapped water simultaneously from
+both directions by switching directions whenever left > right or right < left.
+In any direction (say left for example), if height of current left is greater than or equal to left_max,
+we should update left_max since the water cannot be trapped at the index if its height is bigger.
+If the height of the current left is smaller than left_max, we should add trapped water by
+adding the difference between left_max and height[left]. Distance is 1 since we are iterating by one index.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def trap(self, height):
+        left = 0
+        right = len(height)-1
+        ans = 0
+        left_max = right_max = 0
+        
+        while(left < right):
+            if(height[left] < height[right]):
+                if height[left] >= left_max:
+                    left_max = height[left]    
+                else:
+                    ans += left_max - height[left]
+                left += 1
+            else:
+                if height[right] >= right_max:
+                    right_max = height[right]
+                else:
+                    ans += right_max - height[right]
+                right -= 1
+        return ans
