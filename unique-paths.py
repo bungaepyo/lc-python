@@ -35,7 +35,7 @@ Constraints:
 '''
 ------------------------------------------------------------------------
 Solution 1: DFS, DP but not optimized
-Time: O(mn)
+Time: O(2^n)
 Space: O(1)
 
 Runtime: Exceeds time limit ms
