@@ -121,3 +121,39 @@ class Solution(object):
                 return digits
 
         return [1] + digits
+
+'''
+------------------------------------------------------------------------
+Solution 2 - Reverse Iteration (best)
+Time: O(n)
+Space: O(1)
+
+Runtime: 14 ms
+Memory: 13.2 MB
+
+This is the most optimized reverse iteration solution, using a carry.
+We initialize the carry as 1 since we need to add 1 in the beginning anyways.
+In a reverse for loop, we first add the carry and reset it to zero.
+If the resulting digit is less than 10, return the digits array.
+If not, we need to first (1) set the digit to 0 (2) set the carry to 1.
+Then, you only need to check if it's the first digit, and add 1 to the beginning
+if it is.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def plusOne(self, digits):        
+        carry = 1
+        
+        for i in range(len(digits)-1, -1, -1):
+            digits[i] += carry
+            carry = 0
+            
+            if digits[i] > 9:
+                digits[i] = 0
+                carry = 1
+                if i == 0:
+                    digits.insert(0, 1)
+            else:
+                return digits
+        
+        return digits
