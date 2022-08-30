@@ -94,7 +94,7 @@ Question: can the space complexity be O(n)?
 
 Although we perform the operation in-place (i.e. on the input list itself),
 in the worst scenario, we would need to allocate an intermediate space to hold the result,
-which contains the N+1N+1 elements. Hence the overall space complexity of the algorithm is O(N).
+which contains the N+1 elements. Hence the overall space complexity of the algorithm is O(N).
 
 Runtime: 34 ms
 Memory: 13.3 MB
@@ -124,9 +124,17 @@ class Solution(object):
 
 '''
 ------------------------------------------------------------------------
-Solution 2 - Reverse Iteration (best)
+Solution 3 - Reverse Iteration (best)
 Time: O(n)
-Space: O(1)
+Space: O(n)
+
+python insert method always has O(n) (linear) complexity.
+
+Question: can the space complexity be O(n)?
+
+Although we perform the operation in-place (i.e. on the input list itself),
+in the worst scenario, we would need to allocate an intermediate space to hold the result,
+which contains the N+1 elements. Hence the overall space complexity of the algorithm is O(N).
 
 Runtime: 14 ms
 Memory: 13.2 MB
