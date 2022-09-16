@@ -102,3 +102,63 @@ class Solution(object):
             curr = curr.right
         
         return res
+
+'''
+------------------------------------------------------------------------
+Solution 3: Morris Traversal
+Time: O(n)
+Space: O(1)
+
+Runtime: 26 ms
+Memory: 13.3 MB
+
+This is a solution using a method called the Morris Traversal, and this uses
+a new data structure called the threaded binary tree.
+In this scenario, threaded binary tree is achieved by re-shaping the original
+binary tree. If there is a left node to the current root, you make current root
+the rightmost child of the left node's subtree.
+Thus, we will get something that looks like this:
+         2
+        / \
+       4   5
+            \
+             1
+              \
+               3
+              /
+             6
+Do wrap up, you do the same to node 4 resulting in something like:
+        4
+         \
+          2
+           \
+            5
+             \
+              1
+               \
+                3
+               /
+              6
+While adding nodes to the result array because they don't have curr.left,
+you will encounter node 3, and will run the else statement once more to
+swap the order of 3 and 6 so that inorder traversal is complete.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def inorderTraversal(self, root):
+        res = []
+        curr = root
+        
+        while curr != None:
+            if curr.left == None:
+                res.append(curr.val)
+                curr = curr.right
+            else:
+                pre = curr.left
+                while pre.right != None:
+                    pre = pre.right
+                pre.right = curr
+                temp = curr
+                curr = curr.left
+                temp.left = None
+        return res
