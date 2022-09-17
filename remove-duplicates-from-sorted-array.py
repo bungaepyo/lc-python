@@ -123,3 +123,30 @@ class Solution(object):
                 i += 1
                 nums[i] = nums[j]
         return i+1
+
+'''
+------------------------------------------------------------------------
+Solution 3 - Two Pointers (also simple)
+Time: O(n)
+Space: O(1)
+
+Runtime: 50 ms
+Memory: 15 MB
+
+For this two pointers solution, we simply bypass the duplicates. Whenever
+we find a unique element, we assign it to the index where unique pointer is
+located, and update that pointer.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def removeDuplicates(self, nums):
+        unique = 0
+        val = None
+
+        for i in range(len(nums)):
+            if nums[i] != val:
+                val = nums[i]
+                nums[unique] = nums[i]
+                unique += 1
+        
+        return unique
