@@ -111,6 +111,10 @@ Memory: 14.9 MB
 This is a bit simplified version of the original two pointer solution.
 Fast pointer is not initialized separately, and just runs in the loop starting from 1.
 The first element of the array is taken account for via returning i+1.
+ - i functions as a pointer for unique elements (equivalent to k)
+Whenever we find an element that is unique (a.k.a nums[j] != nums[i]),
+we increase i and swap nums[j] and nums[i] so that we have all the unique
+elements in the front.
 ------------------------------------------------------------------------
 '''
 class Solution(object):
