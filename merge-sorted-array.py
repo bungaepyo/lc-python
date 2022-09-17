@@ -59,14 +59,14 @@ from the front since it will mess up with the indices. Hence, it is a better
 approach to make:
   (1) first pointer at the very last index of nums1 to handle additions (m+n-1)
   (2) second pointer at the last index of non-zero element of nums1 (m-1)
-  (3) third pointer at the last index of non-zero element of nums2 (n-1)
+  (3) third pointer at the last index of nums2 (n-1)
 
 The base idea is to compare second & third pointer, update the first pointer
 depending on which one is bigger, and decreasing pointers accordingly.
 
 One thing to note:
   - since we are updating nums1 in place, we cannot end the iteration even
-    if second pointer is lower than 0. We should continue updating nums1
+    if first pointer is lower than 0. We should continue updating nums1
     until either addPointer or nPointer is lower than 0 as well.
 ------------------------------------------------------------------------
 '''
@@ -107,7 +107,7 @@ copy of nums1 for the comparison.
 class Solution(object):
     def merge(self, nums1, m, nums2, n):
         # Make a copy of the first m elements of nums1.
-        nums1_copy = nums1[:m] 
+        nums1_copy = nums1[:m]
         
         # Read pointers for nums1Copy and nums2 respectively.
         p1 = 0
