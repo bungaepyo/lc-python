@@ -160,3 +160,43 @@ class Solution(object):
             ansNode = ListNode(rval)
             ansNode.next = self.addTwoNumbers(ListNode(1), self.addTwoNumbers(l1.next, l2.next))
             return ansNode
+
+'''
+------------------------------------------------------------------------
+Solution 5 - Math, no recursion
+Time: O(max(m,n))
+Space: O(max(m,n))
+
+Runtime: 103 ms
+Memory: 13.6 MB
+
+This solution basically does the same thing as solution 3, but is more raw.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        carry = 0
+        
+        prehead = ListNode(0)
+        curr = prehead
+        
+        while l1 or l2 or carry != 0:
+            l1val = l1.val if l1 else 0
+            l2val = l2.val if l2 else 0
+
+            add = l1val + l2val + carry
+            carry = 0
+
+            if add >= 10:
+                carry += 1
+                add -= 10
+
+            curr.next = ListNode(add)
+            curr = curr.next
+
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+
+        curr.next = l1 if l1 is not None else l2
+            
+        return prehead.next
