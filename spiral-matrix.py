@@ -199,3 +199,56 @@ class Solution(object):
             change_direction += 1
 
         return result
+
+'''
+------------------------------------------------------------------------
+Solution 4: Simulation - mark visited elements #2
+Time: O(MN)
+Space: O(1)
+
+Runtime: 27 ms
+Memory: 13.6 MB
+
+This is another version of a simulation solution where we mark visited cells.
+It's really intuitive and concise, and we do the following:
+  - iterate until length of result array is equal to R * C
+  - calculate next cell
+    - if valid cell, append to res and mark as visited
+    - otherwise, revert the calculation and update direction
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def spiralOrder(self, matrix):
+        # maximum pos int for m,n is 100
+        VISITED = 101
+        
+        # directions array
+        directions = [(0,1), (1,0), (0,-1), (-1,0)]
+        current_direction = 0
+        
+        # column and row length
+        C = len(matrix[0])
+        R = len(matrix)
+        
+        # result array
+        res = [matrix[0][0]]
+        matrix[0][0] = VISITED
+        next_row, next_col = 0, 0
+        
+        # iterate until we've visited all cells
+        while len(res) < R*C:
+            current_direction %= 4
+            next_row += directions[current_direction][0]
+            next_col += directions[current_direction][1]
+            
+            # if next cell exists and isn't visited, add to res and mark as visited
+            if next_row < R and next_col < C and matrix[next_row][next_col] != VISITED:
+                res.append(matrix[next_row][next_col])
+                matrix[next_row][next_col] = VISITED
+            # if next cell isn't valid, reverse change and change direction
+            else:
+                next_row -= directions[current_direction][0]
+                next_col -= directions[current_direction][1]
+                current_direction += 1
+
+        return res
