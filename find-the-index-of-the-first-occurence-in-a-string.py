@@ -64,6 +64,31 @@ class Solution(object):
 
 '''
 ------------------------------------------------------------------------
+Solution 1.5 - String Matching
+Time: O(n)
+Space: O(1)
+
+Runtime: 15 ms
+Memory: 13.5 MB
+
+Same idea, different way of writing it.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def strStr(self, haystack, needle):
+        if needle not in haystack:
+            return -1
+        
+        length = len(haystack)
+        
+        for i in range(length):
+            if haystack[i] == needle[0]:
+                substring = haystack[i:i+len(needle)]
+                if substring == needle:
+                    return i
+
+'''
+------------------------------------------------------------------------
 Solution 2 - String Matching (simplified)
 Time: O(n)
 Space: O(1)
@@ -71,7 +96,7 @@ Space: O(1)
 Runtime: 15 ms
 Memory: 13.4 MB
 
-This is a more concise version of solution #1. Line 80 is most important.
+This is a more concise version of solution #1.
 ------------------------------------------------------------------------
 '''
 class Solution(object):
