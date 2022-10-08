@@ -1,6 +1,6 @@
 '''
 ------------------
-Difficulty: Easy
+Difficulty: Medium
 ------------------
 
 Implement strStr().
