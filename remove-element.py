@@ -111,3 +111,35 @@ class Solution(object):
             else:
                 i += 1
         return n
+
+'''
+------------------------------------------------------------------------
+Solution 3: Two Pointers
+Time: O(n)
+Space: O(1)
+
+Runtime: 39 ms
+Memory: 13 MB
+
+This is a straightforward two pointers solution. While left pointer is smaller than
+or equal to right pointer, if left pointer points to the val, we swap with
+right pointer's value and decreases right pointer & increase k.
+Otherwise, we increase left pointer and proceed.
+At the end, we return len(nums)-k since that's the nubmer of non-value
+numbers in the rearranged array.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def removeElement(self, nums, val):
+        left = 0
+        right = len(nums)-1
+        k = 0
+        while left <= right:
+            if nums[left] == val:
+                nums[left], nums[right] = nums[right], nums[left]
+                right -= 1
+                k += 1
+            else:
+                left += 1
+
+        return len(nums)-k
