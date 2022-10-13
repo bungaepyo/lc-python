@@ -58,3 +58,30 @@ class Solution(object):
                 zeroPointer += 1
             
         return nums
+
+'''
+------------------------------------------------------------------------
+Solution 2 - Two Pointer (optimized)
+Time: O(n)
+Space: O(1)
+
+Runtime: 136 ms
+Memory: 14.5 MB
+
+This is an optimized version of the two pointers method. We initialize two
+pointers (1) one that always points at leftmost zero (2) one that points at each element.
+While iterating the array with the second pointer, we always update the zero
+pointer so that it meets its condition. Then, if the second pointer points
+at a non-zero element and its index is larger than zero, swap.
+This way, we are able to keep all the zeros towards the right side of the original array.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def moveZeroes(self, nums):
+        zero = 0
+        
+        for i in range(len(nums)):
+            while zero < len(nums) and nums[zero] != 0:
+                zero += 1
+            if nums[i] != 0 and i > zero:
+                nums[zero], nums[i] = nums[i], nums[zero]
