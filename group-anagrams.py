@@ -34,8 +34,8 @@ strs[i] consists of lowercase English letters.
 '''
 ------------------------------------------------------------------------
 Solution 1: Hashmap & sorted function
-Time: O(N)
-Space: O(N)
+Time: O(nklogk) -> n is length of strs, k is max length of string in strs (sorted function is O(nlogn))
+Space: O(nk) -> total information stored in hashmap
 
 Runtime: 100 ms
 Memory: 17.5 MB
@@ -68,6 +68,36 @@ class Solution(object):
                 hashmap[sortedString] = idx
                 idx += 1
         
+        return res
+
+'''
+------------------------------------------------------------------------
+Solution 1.5: Hashmap & sorted function -> alternative way
+Time: O(nklogk)
+Space: O(nk)
+
+Runtime: 175 ms
+Memory: 17.5 MB
+
+This is a different version of using a hashmap and the sorted function,
+and it's a bit cleaner.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def groupAnagrams(self, strs):
+        hashmap = {}
+        
+        for i in range(len(strs)):
+            string = "".join(sorted(strs[i]))
+            if string in hashmap:
+                hashmap[string].append(strs[i])
+            else:
+                hashmap[string] = [strs[i]]
+
+        res = []
+        for arr in hashmap.values():
+            res.append(arr)
+
         return res
 
 '''
