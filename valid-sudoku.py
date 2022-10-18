@@ -53,15 +53,15 @@ Solution 1 - Hash Set
 Time: O(N^2)
 Space: O(N^2)
 
-(debatable if it's N^2 since we know the value of N)
+(N^2 is debatable since N is always given as 9)
 
 Runtime: 79 ms
 Memory: 13.4 MB
 
 This is probably the most straightforward solution using hash sets.
-The the first key to this solution is actually
+The key to this solution is actually
   (1) realizing that you need to create a set for each row, column, and box. 
-It is hard otherwise to check if there is a duplciate element in each 
+It is hard to otherwise check if there is a duplciate element in each 
 row, col, and box. In a nested for loop, check each value if it already 
 exists in the set (r or c). (skip, of course, it it's ".")
 The second key to this solution is
