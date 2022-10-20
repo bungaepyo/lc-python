@@ -93,3 +93,33 @@ class Solution(object):
             mp[s[j]] = j + 1
 
         return ans
+
+'''
+------------------------------------------------------------------------
+Solution 3 - Hash Table, Sliding Window
+Time: O(n)
+Space: O(n)
+
+Runtime: 48 ms
+Memory: 13.5 MB
+
+This is another way of solving this problem with a hashset and sliding window technique.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        hashset = set()
+        
+        left = right = 0
+        res = 0
+        
+        while right < len(s):
+            if s[right] not in hashset:
+                res = max(res, right-left+1)
+                hashset.add(s[right])
+                right += 1
+            else:
+                hashset.remove(s[left])
+                left += 1
+
+        return res
