@@ -56,25 +56,24 @@ This is a pretty intuitive depth-first-search solution. The base idea is the fol
 '''
 class Solution(object):
     def numIslands(self, grid):
-        DIRECTIONS = [(1,0),(0,1),(-1,0),(0,-1)]
         ROW = len(grid)
         COL = len(grid[0])
         count = 0
         
-        def bfs(r, c):
+        def dfs(r, c):
             if r<0 or r>=ROW or c<0 or c>=COL or grid[r][c] != "1":
                 return
             grid[r][c] = "VISITED"
-            bfs(r+1, c)
-            bfs(r-1, c)
-            bfs(r, c+1)
-            bfs(r, c-1)
+            dfs(r+1, c)
+            dfs(r-1, c)
+            dfs(r, c+1)
+            dfs(r, c-1)
         
         for r in range(ROW):
             for c in range(COL):
                 if grid[r][c] == "1":
                     count += 1
-                    bfs(r, c)
+                    dfs(r, c)
         return count
 
 '''
