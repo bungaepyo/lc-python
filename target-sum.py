@@ -37,7 +37,41 @@ Constraints:
 
 '''
 ------------------------------------------------------------------------
-Solution 1: DFS + Memoization
+Solution 1: Brute Force
+Time: O(2^n) -> n is size of nums array
+Space: O(n) -> depth of decursion tree goes up to n
+
+Runtime: ? ms
+Memory: ? MB
+
+This is a recursive brute force approach to calculate all possible combinations
+of building the target number, and adding 1 to count each time we find one.
+The brute force approach is relatively intuitive but has poor time complexity
+because it always doubles the recursion depth for each element in nums.
+Therefore, in order to avoid repetitive recursions, we may improve this algorithm
+with the memoization technique.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    
+    def __init__(self):
+        self.count = 0
+
+    def findTargetSumWays(self, nums, target):
+        self.calculate(nums, 0, 0, target)
+        return self.count
+
+    def calculate(self, nums, i, total, target):
+        if i == len(nums):
+            if total == target:
+                self.count += 1
+        else:
+            self.calculate(nums, i+1, total+nums[i], target)
+            self.calculate(nums, i+1, total-nums[i], target)
+
+'''
+------------------------------------------------------------------------
+Solution 2: DFS + Memoization
 Time: O(nm) -> n refers to sum of nums, m refers to length of nums
 Space: O(nm)
 
