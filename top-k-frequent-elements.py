@@ -125,13 +125,8 @@ If pivot == n - k, nums[pivot:] is the subarray with top k frequent elements.
 '''
 class Solution(object):
     def topKFrequent(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: List[int]
-        """
         count = Counter(nums)
-        unique = list(count.keys())
+        unique = count.keys()
     
         def partition(left, right, pivot_index):
             pivot_frequency = count[unique[pivot_index]]
