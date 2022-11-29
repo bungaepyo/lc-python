@@ -79,6 +79,13 @@ IMPORTANT!
 If the loop ended without returning anything, we want to return the
 smaller integer between right and left. Since the while loop condition is
 left <= right, we return right.
+
+Why do we return right?
+The pivot is returned whenever the square root of x is an integer; otherwise,
+the square root of x has a remainder. Consider when the square root of x has a remainder.
+The while loop terminates once left > right, at which point left will be greater than
+the square root of x (the ceiling) and right will be less than the square root of x (the floor).
+The solution requires truncation, so we return right as it is the floor.
 ------------------------------------------------------------------------
 '''
 class Solution(object):
