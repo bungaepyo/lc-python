@@ -38,8 +38,8 @@ Solution 1 - Binary Search
 Time: O(logn)
 Space: O(1)
 
-Runtime: 33 ms
-Memory: 14 MB
+Runtime: 32 ms
+Memory: 13.8 MB
 
 This is a binary search solution that can reduce time complexity to O(logn).
 Binary search works even though the array is not sorted because
