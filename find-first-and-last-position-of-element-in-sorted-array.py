@@ -36,7 +36,7 @@ nums is a non-decreasing array.
 '''
 ------------------------------------------------------------------------
 Solution 1 - Binary Search
-Time: O(log n)
+Time: O(n)
 Space: O(1)
 
 Runtime: 148 ms
@@ -82,7 +82,7 @@ class Solution(object):
 '''
 ------------------------------------------------------------------------
 Solution 2 - index()
-Time: O(log n)
+Time: O(n)
 Space: O(1)
 
 Runtime: 44 ms
@@ -109,16 +109,16 @@ class Solution(object):
 
 '''
 ------------------------------------------------------------------------
-Solution 1 - Binary Search, but better
+Solution 3 - Binary Search, but better
 Time: O(log n)
 Space: O(1)
 
 Runtime: 66 ms
 Memory: 14.6 MB
 
-This is also a soltion that uses the binary search method, but it's more smart.
-The base idea is similar, but the subfunction has a parameter isFirst that
-indicates whether we're looking for the first or the last occurrence of target.
+This is also a soltion that uses the binary search method, but it's smarter.
+The intuition is similar, but the helper function has a parameter isFirst that
+indicates whether we're looking for the first or the last occurrence of the target.
 Everything else is the same in the binary search function except for two scenarios.
 If we find target by nums[mid] == target, we need to check if it's the first/last element.
 If isFirst is True:
