@@ -93,12 +93,12 @@ Solution 3: Fast Power Algorithm Recursive
 Time: O(logN) -> each time we apply the formula (x^n)^2 => (x^2)^n, n is reduced by half.
 Space: O(logN) -> for each computation, we need to store result of x^(n/2). we do this logN times.
 
-Runtime: 30 ms
-Memory: 13.5 MB
+Runtime: 28 ms
+Memory: 13.3 MB
 
 This solution is commonly referred to as the "Fast Power", and we use it to get logN time complexity.
 The core of this fast power solution is using this exponential formula:
-  - (x^n)^2 => x^(2*x)
+  - (x^n)^2 => x^(2*n)
 The strength of this formula is that, assuming we get x^(n/2), we can get x^n with only one computation.
 We only need to take care of the cases where the computation varies slightly
 depending on n being odd or even.
@@ -141,7 +141,7 @@ eventually face i%2 == 1.
   - Even: 2 // 2 = 1
   - Odd: 3 // 2 = 1 OR 5 // 2 = 3, 2 // 2 = 1
 
-We can also come up with a ginary interpretation of this solution.
+We can also come up with a binary interpretation of this solution.
 Assuming (i, i2, i3, i4 ... ) is the binary representation of n, for the Nth bit (iN),
 it needs to be multiplied by x^(2^N).
 ------------------------------------------------------------------------
