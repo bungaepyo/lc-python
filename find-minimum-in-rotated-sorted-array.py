@@ -125,3 +125,29 @@ class Solution(object):
             # if nums[0] is greater than the mid value then this means the smallest value is somewhere to the left
             else:
                 right = mid - 1
+
+'''
+------------------------------------------------------------------------
+Solution 3 - Binary Search
+Time: O(logn)
+Space: O(1)
+
+Runtime: 24 ms
+Memory: 13.7 MB
+
+This is an alternative version of solution 1 where we compare nums[mid] with
+nums[right].
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def findMin(self, nums):
+        left, right = 0, len(nums)-1
+        
+        while left < right:
+            mid = left + (right-left)/2
+            if nums[mid] > nums[right]:
+                left = mid+1
+            else:
+                right = mid
+        
+        return nums[left]
