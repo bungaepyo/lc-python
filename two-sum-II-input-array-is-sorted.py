@@ -83,3 +83,56 @@ class Solution(object):
                 res.append(left+1)
                 res.append(right+1)
                 return res
+
+'''
+------------------------------------------------------------------------
+Solution 2 - Two Pointers
+Time: O(n)
+Space: O(1)
+
+Runtime: 107 ms
+Memory: 14.3 MB
+
+This is a much more concise two pointers solution.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def twoSum(self, nums, target):
+        left, right = 0, len(nums)-1
+        
+        while left < right:
+            add = nums[left] + nums[right]
+            if add == target:
+                return [left+1, right+1]
+            elif add > target:
+                right -= 1
+            else:
+                left += 1
+
+'''
+------------------------------------------------------------------------
+Solution 3 - Binary Search
+Time: O(nlogn)
+Space: O(1)
+
+Runtime: 172 ms
+Memory: 14.8 MB
+
+We could also solve this problem using binary search - perform a O(logn)
+binary search for each element, but this has way worse time complexity
+than the two pointers solution.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def twoSum(self, nums, target):
+        for i in range(len(nums)):
+            l, r = i+1, len(nums)-1
+            tmp = target - nums[i]
+            while l <= r:
+                mid = l + (r-l)//2
+                if nums[mid] == tmp:
+                    return [i+1, mid+1]
+                elif nums[mid] < tmp:
+                    l = mid+1
+                else:
+                    r = mid-1
