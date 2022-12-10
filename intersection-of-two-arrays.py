@@ -71,3 +71,22 @@ class Solution(object):
         set1 = set(nums1)
         set2 = set(nums2)
         return list(set2 & set1)
+
+'''
+------------------------------------------------------------------------
+Solution 3 - Two Sets
+Time: O(n+m)
+Space: O(n+m)
+
+Runtime: 28 ms
+Memory: 13.8 MB
+
+This is another solution using two sets.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def intersection(self, nums1, nums2):
+        nums1 = set(nums1)
+        nums2 = set(nums2)
+        
+        return [x for x in nums1 if x in nums2]
