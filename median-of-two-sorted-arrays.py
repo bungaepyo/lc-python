@@ -173,3 +173,136 @@ class Solution(object):
 
                 return (max_of_left + min_of_right) / 2.0
         
+'''
+------------------------------------------------------------------------
+Solution 2 - Binary Search
+Time: O(log(m+n))
+Space: O(1)
+
+Runtime: 91 ms
+Memory: 13.8 MB
+
+Solution from: https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2471/Very-concise-O(log(min(MN)))-iterative-solution-with-detailed-explanation
+
+-------------------
+#1 BACKGROUND
+-------------------
+
+(1) First of all, in order to understand this solution, we need to see the concept
+"MEDIAN" in a slightly unconventional way:
+  - If we cut the sorted array in two halves of equal length, then the median
+    is the average of max(lower_half) and min(upper_half), which are
+    the two numbers immediately next to the cut.
+  - For example,
+    - [2 3 5 7] -> [2 3 / 5 7] -> median is (3+5)/2 = 4
+    - [2 3 4 5 6] -> [2 3 (4/4) 5 6] -> median is (4+4)/2 = 4
+
+(2) Second of all, index of L (left of cut) and R (right of cut) has the
+following relationship:
+  - L = (N-1)/2, R = N/2
+  - For example,
+      N   L / R (Index)
+      1   0 / 0
+      2   0 / 1
+      3   1 / 1  
+      4   1 / 2      
+      5   2 / 2
+      6   2 / 3
+      7   3 / 3
+      8   3 / 4
+  - Thus, we can conclude that the median is the following:
+    - (L+R)/2 = (A[(N-1)/2] + A[N/2])/2
+
+(3) Lastly, in a single array setting, we need to understand the concept of
+"imaginary positions" between numbers in order to know where the cut should be located.
+  - If we add possible cut "positions" represented as "#" between numbers:
+    - (Example 1) [6 9 13 18]  ->   [# 6 # 9 # 13 # 18 #]    (N = 4)
+                  position index     0 1 2 3 4 5  6 7  8     (N_Position = 9)
+    - (Example 2) [6 9 11 13 18]->   [# 6 # 9 # 11 # 13 # 18 #]   (N = 5)
+                  position index      0 1 2 3 4 5  6 7  8 9 10    (N_Position = 11)
+  - We need to notice that there are always exactly 2N+1 positions regardless of N.
+    - Thus, middle cut should always be located at Nth position (0-indexed)
+    - Hence,
+      - L = (N-1)/2 => (CutPosition-1)/2
+      - R = N/2     => CurPosition/2
+
+-------------------
+#2 EXPLANATION
+-------------------
+
+The intuition for the two-array case is similar:
+  - We need to find a cut that divides the two arrays so that any number in the
+    left two halves <= any number in the right two halves
+
+There are three observations here:
+  - (1) There are 2N1+2N2+2 positions altogether. Therfore, there must be N1+N2
+        positions on each side of the cut, and 2 positions directly on the cut.
+  - (2) Thus, once we have a cut position on one array, the other array's cut position is auto-decided.
+        Say C2 = k in A2, then the cut position on A1 should be N1+N2-k.
+        For instance, C2 = 2, then C1 = 4+5-C2 = 7
+          [# 1 # 2 # 3 # (4/4) # 5 #]
+          [# 1 / 1 # 1 # 1 #]
+  - (3) When the cuts are made, we would have two L's and two R's:
+        L1 = A1[(C1-1)/2]
+        R1 = A1[C1/2];
+        L2 = A2[(C2-1)/2]
+        R2 = A2[C2/2];
+
+How do we decide if the cut is the cut we want?
+  - According to the intuition, we only need to make sure that "any number in the
+    left two halves <= any number in the right two halves"
+  - L1 <= R1 && L1 <= R2 && L2 <= R1 && L2 <= R2
+  - L1 <= R1 and L2 <= R2 is guarenteed, so L1 <= R2 && L2 <= R1
+
+Using these conditions, we can perform a binary search where
+  - If L1 > R2, it means that there are too many large numbers on the left half of A1.
+    We need to move L1 to the left, which means L2 to the right.
+  - If L2 > R1, it means that there are too many large numbers on the left half of A2.
+    We need to move L2 to the left, with means L1 to the right.
+  - If we find the right cut, return (max(L1, L2) + min(R1, R2)) / 2.0
+
+Note: although the two cut positions are dependent on each other, it is more practical to
+      move the shorter array's cut. This is because while shorter array's positions are
+      all possible cut positions, some of the longer array's positions might not be eligible.
+      (e.g.) [1] [2,3,4,5,6,7,8,9]
+
+-------------------
+#3 EDGE CASE
+-------------------
+
+The only edge case in this problem is when the cut falls on the first (0) or last (2N) position.
+For example, if C2 = 2N, R2 = A[2*N2/2] = A[N2] => this is out of range since 0-indexed.
+In order to cover this edge case, we're going to
+  - assign INT_MIN when cut is 0
+  - assign INT_MAX when cut is 2N
+
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        n1, n2 = len(nums1), len(nums2)
+        
+        # Make sure A2 is the shorter one.
+        if n1 < n2: return self.findMedianSortedArrays(nums2, nums1)
+        
+        left, right = 0, 2 * n2
+        
+        while left <= right:
+            mid2 = left + (right - left) # Try Cut 2 
+            mid1 = n1 + n2 - mid2        # Calculate Cut 1 accordingly
+            
+            # Get L1, R1, L2, R2 respectively
+            L1 = float('-inf') if mid1 == 0 else nums1[(mid1-1) // 2]
+            L2 = float('-inf') if mid2 == 0 else nums2[(mid2-1) // 2]
+            R1 = float('inf') if mid1 == n1*2 else nums1[mid1 // 2]
+            R2 = float('inf') if mid2 == n2*2 else nums2[mid2 // 2]
+            
+            if L1 > R2:
+                # A1's lower half is too big; need to move C1 left (C2 right)
+                left = mid2 + 1
+            elif L2 > R1:
+                # A2's lower half too big; need to move C2 left.
+                right = mid2 - 1
+            else:
+                # Otherwise, that's the right cut.
+                return (max(L1, L2) + min(R1, R2)) / 2.0
