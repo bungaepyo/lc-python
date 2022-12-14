@@ -39,15 +39,13 @@ by increasing start pointer and decreasing end pointer by 1.
 '''
 class Solution(object):
     def reverseString(self, s):
-        start = 0
-        end = len(s)-1
-        while start <= end:
-            temp = s[start]
-            s[start] = s[end]
-            s[end] = temp
-            start += 1
-            end -= 1
-        return s
+        left = 0
+        right = len(s)-1
+        
+        while left < right:
+            s[left], s[right] = s[right], s[left]
+            left += 1
+            right -= 1
 
 '''
 ------------------------------------------------------------------------
