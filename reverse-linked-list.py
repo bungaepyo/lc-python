@@ -35,7 +35,7 @@ Solution 1: Iteration
 Time: O(n)
 Space: O(1)
 
-Runtime: 26 ms
+Runtime: 22 ms
 Memory: 15.4 MB
 
 This is an iterative solution that reverses a linked list in one pass.
@@ -58,12 +58,13 @@ Thus, return prev instead of head, which is mot a valid ListNode.
 class Solution(object):
     def reverseList(self, head):        
         prev = None
+        curr = head
         
         while head:
-            temp = head.next
-            head.next = prev
-            prev = head
-            head = temp
+            next = head.next
+            curr.next = prev
+            prev = curr
+            head = next
         
         return prev
 
@@ -73,8 +74,8 @@ Solution 2: Recursion
 Time: O(n)
 Space: O(n)
 
-Runtime: 27 ms
-Memory: 18.9 MB
+Runtime: 19 ms
+Memory: 18.8 MB
 
 This is a recursive approach that essentially iterates the linked list backwards.
 The base case of the recursion is when head or head.next is not a valid ListNode.
