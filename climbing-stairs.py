@@ -72,6 +72,31 @@ class Solution(object):
 
 '''
 ------------------------------------------------------------------------
+Solution 1.5 - Recursion with Memoization (Simplified)
+Time: O(n)
+Space: O(n)
+
+Runtime: 14 ms
+Memory: 13.9 MB
+
+This is a simplified version of the recursion + memoization solution.
+------------------------------------------------------------------------
+'''
+class Solution(object):    
+    def climbStairs(self, n):
+        cache = {0:0, 1:1, 2:2}
+        
+        def calculate(n):
+            if n in cache:
+                return cache[n]
+            
+            cache[n] = calculate(n-1) + calculate(n-2)
+            return cache[n]
+        
+        return calculate(n)
+
+'''
+------------------------------------------------------------------------
 Solution 2 - Dynamic Programming
 Time: O(n)
 Space: O(n)
