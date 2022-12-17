@@ -65,7 +65,7 @@ class Solution(object):
             prev = curr
             rowIndex -= 1
 
-        return curr
+        return prev
 
 '''
 ------------------------------------------------------------------------
