@@ -48,14 +48,14 @@ class Solution(object):
 
 '''
 ------------------------------------------------------------------------
-Solution 1.2 - Recursion
+Solution 1.1 - Recursion
 Time: O(n)
 Space: O(n)
 
 Runtime: 28 ms
 Memory: 16.1 MB
 
-This is a second variation of the recursive solution, where we use a global
+This is a variation of the recursive solution, where we use a global
 variable to keep track of the maximum depth of the binary tree.
 ------------------------------------------------------------------------
 '''
