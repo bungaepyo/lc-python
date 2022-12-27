@@ -30,8 +30,8 @@ Solution 1 - Recursion
 Time: O(n)
 Space: O(n)
 
-Runtime: 50 ms
-Memory: 16.1 MB
+Runtime: 23 ms
+Memory: 15.9 MB
 
 This is a simple recursive solution. Base case is when current node does
 not exist, and we always return 1 + bigger of left and right result.
@@ -45,6 +45,35 @@ class Solution(object):
             return 0
         
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+
+'''
+------------------------------------------------------------------------
+Solution 1.2 - Recursion
+Time: O(n)
+Space: O(n)
+
+Runtime: 28 ms
+Memory: 16.1 MB
+
+This is a second variation of the recursive solution, where we use a global
+variable to keep track of the maximum depth of the binary tree.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def maxDepth(self, root):
+        self.res = 0
+        self.helper(root, 1)
+        return self.res
+    
+    def helper(self, node, depth):
+        if node is None:
+            return None
+        
+        if node.left is None and node.right is None:
+            self.res = max(self.res, depth)
+        
+        self.helper(node.left, depth+1)
+        self.helper(node.right, depth+1)
 
 '''
 ------------------------------------------------------------------------
