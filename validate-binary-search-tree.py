@@ -35,8 +35,8 @@ Solution 1: Recursive Traversal with Valid Range
 Time: O(n)
 Space: O(n) -> recursion stack holds all nodes in worst case
 
-Runtime: 55 ms
-Memory: 17.8 MB
+Runtime: 28 ms
+Memory: 18.2 MB
 
 This is the most standard way of validating a BST using the recursive method.
 The most important characteristic of a BST is that "all" nodes to the right
@@ -56,14 +56,14 @@ and if we're making ca call to root.right, we should update the higher limit to 
 '''
 class Solution(object):
     def isValidBST(self, root):
-      return self.helper(root, None, None)
-    
-    def helper(self, root, low, high):
-        if root == None:
-            return True
-        if (low != None and root.val <= low) or (high != None and root.val >= high):
-            return False
-        return self.helper(root.left, low, root.val) and self.helper(root.right, root.val, high)
+        def helper(root, low, high):
+            if not root:
+                return True
+            if (low is not None and root.val <= low) or (high is not None and root.val >= high):
+                return False
+            return helper(root.left, low, root.val) and helper(root.right, root.val, high)
+        
+        return helper(root, None, None)
 
 '''
 ------------------------------------------------------------------------
@@ -72,7 +72,7 @@ Solution 2: Iterative Traversal with Valid Range
 Time: O(n)
 Space: O(n) -> stack
 
-Runtime: 61 ms
+Runtime: 34 ms
 Memory: 17.9 MB
 
 This is an iterative version of Solution 1, using a stack to track the nodes.
@@ -84,8 +84,6 @@ whether we add left or right first does not matter, and we return True at the en
 '''
 class Solution(object):
     def isValidBST(self, root):
-        if not root:
-            return True
 
         stack = [(root, None, None)]
         while stack:
@@ -107,7 +105,7 @@ Solution 3: Recursive Inorder Traversal
 Time: O(n)
 Space: O(n)
 
-Runtime: 58 ms
+Runtime: 33 ms
 Memory: 18.4 MB
 
 Inorder traversal is actually the perfect way to validate a BST since its
@@ -120,20 +118,19 @@ Third, we go ahead and return the result of root.right recursive call to wrap up
 ------------------------------------------------------------------------
 '''
 class Solution(object):
-    prev = None
-
     def isValidBST(self, root):
-        return self.inorder(root)
-    
-    def inorder(self, root):
-        if not root:
-            return True
-        if not self.inorder(root.left):
-            return False
-        if self.prev != None and root.val <= self.prev:
-            return False
-        self.prev = root.val
-        return self.inorder(root.right)
+        def helper(node):
+            if not node:
+                return True
+            if not helper(node.left):
+                return False
+            if node.val <= self.prev:
+                return False
+            self.prev = node.val
+            return helper(node.right)
+        
+        self.prev = float('-inf')
+        return helper(root)
 
 '''
 ------------------------------------------------------------------------
@@ -142,8 +139,8 @@ Solution 4: Iterative Inorder Traversal
 Time: O(n)
 Space: O(n)
 
-Runtime: 49 ms
-Memory: 18 MB
+Runtime: 29 ms
+Memory: 17.7 MB
 
 This is an iterative version of the inorder traversal solution, using a stack.
 ------------------------------------------------------------------------
