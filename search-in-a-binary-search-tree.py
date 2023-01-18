@@ -77,3 +77,28 @@ class Solution(object):
             root = root.left if val < root.val else root.right
         
         return root
+
+'''
+------------------------------------------------------------------------
+Solution 3: Iteration - Binary Search
+Time: O(h)
+Space: O(1)
+
+Runtime: 51 ms
+Memory: 17.4 MB
+
+This is a binary search style iteration approach to find the target node
+within the BST. Basically does the same thing as solution 2, but in a
+different format.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def searchBST(self, root, val):
+        while root:
+            if root.val == val:
+                return root
+            elif root.val > val:
+                root = root.left
+            else:
+                root = root.right
+        return None
