@@ -79,3 +79,67 @@ class KthLargest(object):
         if len(self.heap) > self.k:
             heapq.heappop(self.heap)
         return self.heap[0]
+
+'''
+------------------------------------------------------------------------
+Solution 2: Binary Search Tree
+Time: O(h), both insertion and search
+Space: O(n)
+
+Runtime: ? ms
+Memory: ? MB
+
+This is a solution using the binary search tree data strcuture. The reason
+we use a binary search tree is because both insertion and search can be
+done in O(h) time. The underlying intuition is the following:
+  - if we add all the elements into a binary search and keep track of
+    how many nodes are in the subtree starting with itself, we're able
+    to more efficiently get the kth largest element.
+  - first, we're looking for a node whose right tree size + 1 == k.
+    thus, this should be the base case of recursion.
+  - if the right subtree size is bigger than k, it means the target
+    node is further down the right subtree. do the recursion.
+  - otherwise, you need to keep looking on the left subtree. however,
+    note that you need to use "k - (right subtree size) - 1" for k as
+    that is the remaining number of steps we should take further down the left side.
+------------------------------------------------------------------------
+'''
+class TreeNode(object):
+    def __init__(self, val, count):
+        self.left = None
+        self.right = None
+        self.val = val
+        self.count = count
+
+class KthLargest(object):
+
+    def __init__(self, k, nums):
+        self.root = None
+        for num in nums:
+            root = self.addToBST(self.root, num)
+        self.k = k
+
+    def add(self, val):
+        self.addToBST(self.root, val)
+        return self.searchKth(self.root, self.k)
+    
+    def searchKth(self, root, k):
+        rightSize = root.right.count if root.right else 0
+        if k == rightSize+1:
+            return root.val
+        if k <= rightSize:
+            return self.searchKth(root.right, k)
+        else:
+            return self.searchKth(root.left, k-m-1)
+    
+    def addToBST(self, root, val):
+        if not root:
+            return TreeNode(val, 1)
+        
+        if root.val < val:
+            root.right = self.addToBST(root.right, val)
+        else:
+            root.left = self.addToBST(root.left, val)
+        root.count += 1
+        return root
+
