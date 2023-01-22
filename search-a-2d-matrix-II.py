@@ -96,6 +96,11 @@ bottom, it's guarenteed that value of matrix[row-1][col] will be smaller.
 
 If the current value is smaller than target, we move one cell to the right (col += 1).
 We continue this process until we find the target or current cell is out of range.
+
+We're basically updating matrix so that it has a new bottom-left corner
+every time we make a comparison with the target.
+If the current value is too small, anything above it becomes meaningless -> move right
+If the current value is too big, anything right to it becomes meaningless -> move up
 ------------------------------------------------------------------------
 '''
 class Solution(object):
