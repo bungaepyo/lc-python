@@ -51,7 +51,7 @@ Constraint: if root.val is lower than or equal to the lower limit, return False.
 
 Key here is to update the low & high limits in the recursive call.
 When we're making a call to root.left, we need to update the higher limit to root.val,
-and if we're making ca call to root.right, we should update the higher limit to root.val.
+and if we're making ca call to root.right, we should update the lower limit to root.val.
 ------------------------------------------------------------------------
 '''
 class Solution(object):
@@ -108,8 +108,9 @@ Space: O(n)
 Runtime: 33 ms
 Memory: 18.4 MB
 
-Inorder traversal is actually the perfect way to validate a BST since its
-traversal order perfectly overlaps with BST's number value hierarchy.
+Inorder traversal is actually the perfect way to validate a BST since
+numerical values should always be in increasing order when performing
+inorder traversal on a BST.
 Therefore, if we're doing an inorder traversal, we only need to check if
 the current node is greater than the previous node (global variable).
 First, we dig in to the left.
