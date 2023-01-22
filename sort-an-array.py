@@ -114,3 +114,60 @@ class Solution(object):
                 k+=1
 
         return nums
+
+'''
+------------------------------------------------------------------------
+Solution 2: Quick Sort (TLE)
+Time: O(nlogn) -> average case, worst case O(n^2)
+Space: O(n)
+
+Note on time complexity: average case is O(nlogn) because, if the pivot
+happens to be the mdeian of the list, the list would be divided into two
+sublists of equal size. This would be a balanced binary search tree. With
+height of logn, each level will be scanned once O(n) due to partitioning.
+Worst case is when pivot is an extreme value on the far left or right side.
+
+Runtime: ??? ms
+Memory: ??? MB
+
+This is a classic quicksort algorithm implementation. Quicksort basically
+uses a pivot to divide the array into two partitions:
+  - left side should only have smaller elements
+  - right side should only have larger elements
+
+(1) we choose a pivot and get it out of the way by swapping with last element
+(2) with two pointers, we swap when we find smaller (than pivot) elements located at
+    the right of larger (than pivot) elements.
+(3) we swap back the pivot to its correct position, which is saved by the
+    slower pointer
+
+This results in a partitioned array that has a pivot with smaller elements
+on its left, and larger elements on its right. Since we return the pivot
+index, we can recursively call quicksort(low, pivot-1) and quicksort(pivot+1, high)
+so that the sublists are also sorted in the end result.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+    def sortArray(self, nums):
+        self.quicksort(nums, 0, len(nums)-1)
+        return nums
+    
+    def quicksort(self, nums, low, high):
+        if low < high:
+            partition = self.partition(nums, low, high)
+            self.quicksort(nums, low, partition-1)
+            self.quicksort(nums, partition+1, high)
+    
+    def partition(self, nums, low, high):
+        mid = low+(high-low)//2
+        nums[mid], nums[high] = nums[high], nums[mid]
+        pivot = nums[high]
+        
+        i = low
+        for j in range(low, high):
+            if nums[j] < pivot:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+        
+        nums[i], nums[high] = nums[high], nums[i]
+        return i
