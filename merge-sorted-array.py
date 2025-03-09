@@ -154,3 +154,32 @@ class Solution(object):
             else:
                 nums1[p] = nums2[p2]
                 p2 -= 1
+
+'''
+------------------------------------------------------------------------
+Solution 4: Two Pointers
+Time: O(m+n)
+Space: O(1)
+
+Runtime: 2 ms
+Memory: 12.4 MB
+
+This is a two pointer solution that fills up nums1 from the back, so you
+do not need extra memory to store the numbers.
+
+Since the smallest form of nums1 is [0] and the smallest form of nums2 is [],
+you only have to check for n > 0 in the while loop to avoid out of range errors.
+
+If m == 0 while n > 0, that means there is only one spot (first) to fill
+in nums1.
+------------------------------------------------------------------------
+'''
+class Solution(object):
+        def merge(self, nums1, m, nums2, n):
+          while n > 0:
+              if m == 0 or nums1[m-1] < nums2[n-1]:
+                  nums1[m+n-1] = nums2[n-1]
+                  n -= 1
+              else:
+                  nums1[m+n-1] = nums1[m-1]
+                  m -= 1
