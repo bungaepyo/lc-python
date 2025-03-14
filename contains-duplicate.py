@@ -55,6 +55,15 @@ class Solution(object):
             hashset.add(nums[i])
         return False
 
+class Solution(object):
+    def containsDuplicate(self, nums):
+        hashmap = {}
+        for num in nums:
+            if num in hashmap:
+                return True
+            hashmap[num] = True
+        return False
+
 '''
 ------------------------------------------------------------------------
 Solution 2 - Sorting
